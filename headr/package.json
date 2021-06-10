@@ -1,47 +1,75 @@
 {
-  "name": "@sutochno/headr",
-  "description": "No description",
-  "version": "0.1.19",
+  "_from": "@sutochno/headr@0.0.232",
+  "_id": "@sutochno/headr@0.0.232",
+  "_inBundle": false,
+  "_integrity": "sha512-erL6/7Zbrk+f+sx26oQF1wGrXjJUSjbUZHgwieqVfU/T6K6X/Ay/IqBCCdgmihYnAHiEPtOyMn2UDNarRyQyrg==",
+  "_location": "/@sutochno/headr",
+  "_phantomChildren": {
+    "vue-runtime-helpers": "1.1.2"
+  },
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@sutochno/headr@0.0.232",
+    "name": "@sutochno/headr",
+    "escapedName": "@sutochno%2fheadr",
+    "scope": "@sutochno",
+    "rawSpec": "0.0.232",
+    "saveSpec": null,
+    "fetchSpec": "0.0.232"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://npmjs.webpower.ru/@sutochno%2fheadr/-/headr-0.0.232.tgz",
+  "_shasum": "62b70ffd1b85eaa0211d324a91d56106e4a828fb",
+  "_spec": "@sutochno/headr@0.0.232",
+  "_where": "D:\\OpenServer\\domains\\searchapp",
   "author": {
     "name": "Alexander Syapukov",
     "email": "asyapukov@sutochno.ru"
   },
-  "keywords": [
-    "headr",
-    "vue",
-    "frontend"
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.webpower.ru/sutochno/frontend/sutochno-components/components/headr"
-  },
-  "homepage": "https://gitlab.webpower.ru/sutochno/frontend/sutochno-components/components/headr",
-  "bugs": {
-    "url": "https://gitlab.webpower.ru/sutochno/frontend/sutochno-components/components/headr"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "main": "dist/index.ssr.js",
-  "module": "dist/index.esm.js",
   "browser": {
     "./common": "dist/index.common.js",
     "./ssr": "dist/index.ssr.js",
     "./sfc": "index.js"
   },
-  "scripts": {
-    "transpile": "rollup --config ../../rollup.config.js"
+  "bugs": {
+    "url": "https://gitlab.webpower.ru/sutochno/frontend/sutochno-components/components/headr"
   },
+  "bundleDependencies": false,
   "dependencies": {
     "@sutochno/input": "^0.0.20",
     "@sutochno/inputPhone": "^0.0.12",
-    "@sutochno/modal": "^0.0.19",
+    "@sutochno/modal": "^0.0.15",
     "@vkontakte/vk-bridge": "^2.3.0",
     "axios": "^0.21.1",
     "axios-extensions": "^3.1.2",
     "vue-cookies": "^1.7.0",
     "vue-runtime-helpers": "^1.1.2"
   },
-  "gitHead": "8a5b473f8bbedb934273a7f016a324d3ce63b2b4"
+  "deprecated": false,
+  "description": "No description",
+  "gitHead": "db23e9492ce3aa4584118b406b144c55a320bc56",
+  "homepage": "https://gitlab.webpower.ru/sutochno/frontend/sutochno-components/components/headr",
+  "keywords": [
+    "headr",
+    "vue",
+    "frontend"
+  ],
+  "license": "MIT",
+  "main": "dist/index.ssr.js",
+  "module": "dist/index.esm.js",
+  "name": "@sutochno/headr",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.webpower.ru/sutochno/frontend/sutochno-components/components/headr"
+  },
+  "scripts": {
+    "transpile": "rollup --config ../../rollup.config.js"
+  },
+  "version": "0.0.232"
 }

@@ -9,7 +9,10 @@ import VueCookies from "vue-cookies";
 
 
 //проверка, является ли сайт партнерским (isWhiteLabel)
-const IS_WHITE_LABEL = typeof window !== "undefined" && VueCookies.get("whiteLabel");
+// const IS_WHITE_LABEL = typeof window !== "undefined" && VueCookies.get("whiteLabel");
+const IS_WHITE_LABEL = process &&
+  process.env &&
+  process.env.VUE_APP_WL_NAME != null
 
 // проверяем на VK приложение для замены токена
 let isVkApp = false;

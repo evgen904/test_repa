@@ -97,6 +97,16 @@ export default {
       align-items: center;
       justify-content: space-between;
       margin-bottom: 20px;
+      .close {
+        display: block;
+        padding: 0 0 0 5px;
+        color: #a6a6a6;
+        font-size: 18px;
+        cursor: pointer;
+        &:hover {
+          color: #666;
+        }
+      }
     }
     .auth-header-form-input {
       margin-bottom: 20px!important;

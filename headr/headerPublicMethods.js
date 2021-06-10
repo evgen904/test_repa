@@ -29,22 +29,17 @@ const registerByTelephone = (store, payload) => {
  * @param {Object} store - прокинуть хранилмще vuex
  * @param {DOM NODE} payload - элемент дом дерева на котором слушается событие VK_GET_PHONE_NUMBER
  */
-
-let mountCount = 0
 const vkGetUserPhoneNumber = (store, payload) => {
   const {elem} = payload
-  mountCount++
-
-  if (mountCount === 1) {
-    elem.addEventListener('VK_GET_PHONE_NUMBER', () => {
-      bridge
-          .send("VKWebAppGetPhoneNumber", {})
-          .then((res) => {
-            //alert(JSON.stringify(res));//debug vk-app-bridge
-            store.commit("user/vkAppInfoMutate", {phone_number: res.phone_number})
-          });
-    })
-  }
+  elem.addEventListener('VK_GET_PHONE_NUMBER', () => {
+    bridge
+      .send("VKWebAppGetPhoneNumber", {})
+      .then((res) => {
+        //alert(JSON.stringify(res));//debug vk-app-bridge
+        store.commit("user/vkAppInfoMutate", {phone_number: res.phone_number})
+      });
+    
+  })
 }
 
 /**
@@ -83,26 +78,10 @@ const VKWebAppGetEmailResult = (store, payload) => {
   })
 }
 
-let callCount = 0
-const isDocumentHidden = (store, payload) => {
-  callCount++
-  if (callCount === 1) {
-    const {elem} = payload
-    elem.addEventListener("visibilitychange", function(){
-      if (elem.hidden){
-        store.commit("user/setIsDocumentHidden", true)
-      } else {
-        store.commit("user/setIsDocumentHidden", false)
-      }
-    });
-  }
-}
-
 export {
   openRegister,
   registerByTelephone,
   vkGetUserPhoneNumber,
   VKWebAppGetUserInfo,
-  VKWebAppGetEmailResult,
-  isDocumentHidden
+  VKWebAppGetEmailResult
 }

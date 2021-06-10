@@ -42,16 +42,16 @@
         </b-button>
         <b-button
           type="button"
-          class="btn btn-mailru"
-          @click="loginSocial('ml')"
+          class="btn btn-google"
+          @click="loginSocial('gg')"
         >
-          <span class="name-btn">С помощью mail.ru</span>
+          <span class="name-btn">С помощью Google</span>
         </b-button>
         <!-- <div class="fb" @click="loginSocial('fb')"></div> -->
       </div>
       <div class="social-login bot">
         <div class="icon yandex" @click="loginSocial('ya')"></div>
-        <div class="icon google" @click="loginSocial('gg')"></div>
+        <div class="icon mailru" @click="loginSocial('ml')"></div>
         <div class="icon ok" @click="loginSocial('ok')"></div>
       </div>
     </div>
@@ -70,16 +70,16 @@
     />
     <div class="field-password">
       <Input 
-        v-model.trim="pass"
-        class="auth-header-form-input"
-        :class="{
-          'is-invalid': valid.password === false,
-          'mbottom-4': textError.length
-        }"
-        :placeholder="$t('passwordPlaceholder')"
-        :type="togglePassword ? 'password' : 'text'"
-        keyup="enter"
-        @enter="$emit('onAuth')"
+      v-model.trim="pass"
+      class="auth-header-form-input"
+      :class="{
+        'is-invalid': valid.password === false,
+        'mbottom-4': textError.length
+      }"
+      :placeholder="$t('passwordPlaceholder')"
+      :type="togglePassword ? 'password' : 'text'"
+      keyup="enter"
+      @enter="$emit('onAuth')"
       />
       <div v-if="textError.length" class="field-error">
       <div v-for="(item, index) in textError" :key="index">
@@ -188,10 +188,21 @@ export default {
 
 <style lang="scss" scoped>
   .auth-header-wrapp {
+    
     .auth-header-title-wrapp {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      .close {
+        display: block;
+        padding: 0 0 0 5px;
+        color: #a6a6a6;
+        font-size: 18px;
+        cursor: pointer;
+        &:hover {
+          color: #666;
+        }
+      }
     }
     .social-login-wrapp {
       margin-top: 20px;
@@ -202,7 +213,7 @@ export default {
         padding: 6px 0 0;
         margin: 0 auto 10px;
         width: 100%;
-        .btn-mailru,
+        .btn-google,
         .btn-vk {
           width: 100%;
           padding: 13px 26px 12px 27px;
@@ -242,10 +253,10 @@ export default {
             letter-spacing: normal;
           }
         }
-        .btn-mailru {
+        .btn-google {
           border: 0;
           text-align: left;
-          background-color: #0059fd;
+          background-color: #dd4c39;
           outline: none;
           position: relative;
           &:before {
@@ -254,7 +265,7 @@ export default {
             cursor: pointer;
             width: 16px;
             height: 16px;
-            background: url("./../../assets/icon/mailru@3x.png") 0 0 no-repeat;
+            background: url("./../../assets/icon/google@3x.png") 0 0 no-repeat;
             background-size: contain;
             transform: translate(0, -50%);
             position: absolute;
@@ -262,7 +273,7 @@ export default {
             left: 27px;
           }
           &:hover {
-            background-color: rgba(0, 89, 253, .85);
+            background-color: rgba(221, 76, 57, .85);
           }
           .name-btn {
             margin-left: 27px;
@@ -325,10 +336,10 @@ export default {
           top: 50%;
           left: 50%;
         }
-        .google:before {
+        .mailru:before {
           width: 16px;
           height: 16px;
-          background: url("./../../assets/icon/google@3x.png") 0 0 no-repeat;
+          background: url("./../../assets/icon/mailru@3x.png") 0 0 no-repeat;
           background-size: contain;
           transform: translate(-50%, -50%);
           position: absolute;

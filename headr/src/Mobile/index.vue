@@ -194,6 +194,7 @@ export default {
   watch: {
     $route(to) {
       this.activeMod = 0;
+      this.routeName = to.name;
     },
     // currency: function () {
     //   setTimeout(() => {
@@ -234,8 +235,9 @@ export default {
   },
   data() {
     return {
+      routeName: this.$route.name,
       key: 0,
-      activeMod: 0
+      activeMod: 0,
     };
   },
 };

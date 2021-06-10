@@ -20,18 +20,10 @@
       <!-- slot -->
       <a
         slot="title"
-        :href="`${this.baseLink}/help/${
-          isAuth && data.user_is_owner > 0 ? 'arendodateli' : 'gosti'
-        }`"
-        target="_blank"
+        href="tel:88004448049"
         class="no-link sc-nav-list-block"
       >
-        <span class="help-icon sc-header-icon-tmp sc-header-icon-help">
-          <span v-if="adminMessages" class="badge">
-            {{ data.messages.modules.messages.new }}
-          </span>
-        </span>
-        <span class="title-btn">{{ $t("help") }}</span>
+        <span class="title-btn">8 800 444 8049</span>
       </a>
       <!-- slot -->
 
