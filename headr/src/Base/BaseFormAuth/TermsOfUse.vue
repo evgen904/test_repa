@@ -53,16 +53,6 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      .close {
-        display: block;
-        padding: 0 0 0 5px;
-        color: #a6a6a6;
-        font-size: 18px;
-        cursor: pointer;
-        &:hover {
-          color: #666;
-        }
-      }
     }
   }
 </style>

@@ -205,7 +205,8 @@ export default {
       }
     }
     .modal-review-content {
-      // margin-bottom: 0 !important;
+      margin-bottom: 0 !important;
+      margin-top: 0!important;
     }
     .primary-title {
       font-size: 22px;
@@ -227,6 +228,8 @@ export default {
   .modal-review-content {
     @media (max-width: 767px) {
       padding-top: 20px;
+      margin-top: 30px!important;
+      margin-bottom: -10px!important;
     }
   }
 }

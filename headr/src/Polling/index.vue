@@ -37,7 +37,7 @@
 
 <script>
 import ModalMessage from "./ModalMessage.vue";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { Polling } from "../API/index.js";
 import ModalNotice from './ModalNotice.vue';
 import ModalBonus from './ModalBonus.vue';
@@ -58,13 +58,13 @@ export default {
     };
   },
   computed: {
-    ...mapState("user", ["userData", "isAuth"]),
+    ...mapState("user", ["userData", "isAuth", "isDocumentHidden"]),
   },
   watch: {
     isAuth(val) {
       if (val) {
         //  && process.env.NODE_ENV === "production"
-        this.init();
+        //this.init();
       }
     },
     writeToMe(val) {
@@ -79,6 +79,7 @@ export default {
     this.bonus = this.findGetParameter('bonus');
   },
   methods: {
+    ...mapActions("user", ["loadUserData"]),
     findGetParameter(parameterName) {
       var result = null,
           tmp = [];
@@ -91,45 +92,109 @@ export default {
           });
       return result;
     },
+    initMethodPlatform(method, orderId) {
+      // вызываем методы с платформы, стр. /cabinet/notices/<order_id>
+
+      // перезагружает переписку с сообщениями
+      if (method === "initMessagesOrder" && typeof initMessagesOrder === "function") {
+        initMessagesOrder(orderId)
+      }
+
+      // перезагружает всю заявку с сообщениями и блоками написания/подтверждения/отмены
+      if (method === "initOrderData" && typeof initOrderData === "function") {
+        initOrderData(orderId)
+      }
+    },
     init() {
-      // const apiPolling = (callback = null) => {
-      //   Polling.pushUser({
-      //     userId: this.userData.user.id,
-      //   })
-      //     .then((response) => {
-      //       if (response.data) {
-      //         apiPolling(callback);
-      //         if (callback) callback(response);
-      //       }
-      //     })
-      //     .catch((error) => {
-      //       apiPolling(callback);
-      //     });
-      // };
+      let pathUrl = document.location.pathname.split('/')
+      let orderId = pathUrl[3]
+      // isCabinetNotices --- находимся ли на стр. /cabinet/notices/<order_id>
+      let isCabinetNotices = (pathUrl[1] === "cabinet" && pathUrl[2] === "notices" && orderId !== "") ? true : false;
+      let isCalendar = pathUrl.findIndex(item => item === "calendar")
+      let isTop = pathUrl.findIndex(item => item === "top")
 
-      // apiPolling((res) => {
-      //   if (res.data) {
-      //     let dataCallback = this.parseData(res.data.text);
+      if (isCalendar === -1 && isTop === -1) {
+        const apiPolling = (callback = null) => {
+          Polling.pushUser({
+            userId: this.userData.user.id,
+          })
+            .then((response) => {
+              if (response.data) {
+                if (!this.isDocumentHidden) apiPolling(callback);
+                if (callback) callback(response);
+              }
+            })
+            .catch((error) => {
+              if (!this.isDocumentHidden) apiPolling(callback);
+            });
+        };
 
-      //     // Вам пишут сообщение...
-      //     if (dataCallback.callback == "_writeToMe") {
-      //       this.writeToMe = true;
-      //     }
+        apiPolling((res) => {
+          if (res.data) {
+            let dataCallback = this.parseData(res.data.text);
 
-      //     // Пришли сообщения
-      //     if (dataCallback.token) {
-      //       Polling.getNewNotices()
-      //         .then((response) => {
-      //           if (response.data && response.data.data) {
-      //             this.notices = response.data.data.notices;
-      //           }
-      //         })
-      //         .catch((error) => {
-      //           console.log(error);
-      //         });
-      //     }
-      //   }
-      // });
+            // Вам пишут сообщение...
+            if (dataCallback.callback == "_writeToMe") {
+              this.writeToMe = true;
+            }
+
+            // Пришли сообщения
+            if (dataCallback.token) {
+              Polling.getNewNotices()
+                      .then((response) => {
+                        if (response.data && response.data.data) {
+                          this.notices = response.data.data.notices;
+                        }
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+
+              switch (dataCallback.token) {
+                case "OrdersNewMessage":
+                  if (isCabinetNotices) {
+                    this.initMethodPlatform('initMessagesOrder', orderId)
+                  } else {
+                    this.loadUserData();
+                  }
+                  break;
+                case "OrdersNewBookingOwner":
+                  this.loadUserData();
+                  break;
+                case "OrdersPayedOwner":
+                  if (isCabinetNotices) {
+                    this.initMethodPlatform('initOrderData', orderId)
+                  } else {
+                    this.loadUserData();
+                  }
+                  break;
+                case "OrdersCancelByClient":
+                  if (isCabinetNotices) {
+                    this.initMethodPlatform('initOrderData, orderId')
+                  } else {
+                    this.loadUserData();
+                  }
+                  break;
+                case "OrdersCancelByOwner":
+                  if (isCabinetNotices) {
+                    this.initMethodPlatform('initMessagesOrder', orderId)
+                  } else {
+                    this.loadUserData();
+                  }
+                  break;
+                case "OrdersAcceptByOwner":
+                  if (isCabinetNotices) {
+                    this.initMethodPlatform('initMessagesOrder', orderId)
+                  } else {
+                    this.loadUserData();
+                  }
+                  break;
+              }
+
+            }
+          }
+        });
+      }
     },
     parseData(value) {
       let text = value;

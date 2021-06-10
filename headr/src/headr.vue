@@ -24,7 +24,8 @@ import headerEventsDispatcher from "../headerEventsDispatcher.js";
 import { openRegister, registerByTelephone,
   vkGetUserPhoneNumber,
   VKWebAppGetUserInfo,
-  VKWebAppGetEmailResult } from "../headerPublicMethods.js";
+  VKWebAppGetEmailResult,
+  isDocumentHidden } from "../headerPublicMethods.js";
 import bridge from "@vkontakte/vk-bridge";
 import axios from "axios";
 import VueCookies from "vue-cookies";
@@ -179,9 +180,9 @@ export default {
       registerByTelephone(this.$store, options); //инициализация публичного метода
       vkGetUserPhoneNumber(this.$store, options);//инициализация публичного метода
       registerByTelephone(this.$store, options);
-      vkGetUserPhoneNumber(this.$store, options);
       VKWebAppGetUserInfo(this.$store, options);
       VKWebAppGetEmailResult(this.$store, options);
+      isDocumentHidden(this.$store, options);
     },
     /**
     @description инициализация логики для vk mini app

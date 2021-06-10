@@ -33,6 +33,7 @@ const state = () => ({
   vkAppInfo: {},
   pageType: null,
   envBaseUrl: "",
+  isDocumentHidden: false,
   whitelabel: null
 });
 
@@ -295,6 +296,9 @@ const mutations = {
   envBaseUrlMutate(state, payload) {
     if(payload)
       state.envBaseUrl = `${payload}/`
+  },
+  setIsDocumentHidden(state, value) {
+    state.isDocumentHidden = value;
   },
   whitelabelMutate(state, payload) {
     state.whitelabel = payload
